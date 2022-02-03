@@ -2,6 +2,10 @@ import { v4 as uuidv4 } from 'uuid';
 let users =[]
 
 export const createUser = (req, res)=>{
+    let error = !req.body.lastname ? 'name is required' : !req.body.age ? 'age is required' : !req.body.firstName ? 'firstName is required' : !req.body.age ? 'age is required' : ''
+    if( error != ' ')
+    return res.status(400).send(error)
+    
     const user = req.body;
     console.log(req.body);
     users.push( {...user, id:uuidv4()})
