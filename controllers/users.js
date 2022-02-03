@@ -2,14 +2,31 @@ import { v4 as uuidv4 } from 'uuid';
 let users =[]
 
 export const createUser = (req, res)=>{
-    let error = !req.body.lastname ? 'name is required' : !req.body.age ? 'age is required' : !req.body.firstName ? 'firstName is required' : !req.body.age ? 'age is required' : ''
-    if( error != ' ')
-    return res.status(400).send(error)
     
-    const user = req.body;
-    console.log(req.body);
+    
+  let error = !req.body.lastName ? 'last name is required' : !req.body.age ? 'age is required' : !req.body.firstName ? 'firstName is required' : !req.body.age ? 'age is required' : !req.body.gender? 'gender is require' : ' '
+    if( error != ' ')
+    return res.status(400).send(error);
+
+    let validGender = ['male', 'female']        
+     error = typeof req.body.lastName != 'string' ?'lastname must be a string' : typeof req.body.age != 'number' ? 'age is required' :typeof req.body.firstName != 'string' ? 'firstName is required' :  !validGender.includes( req.body.gender) ? 'gender is required' : ' '
+    if( error != ' ')
+    return res.status(400).send(error);
+    
+    // console.log(req.body);
+    
+    let user ={
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        age:req.body.age,
+        gender:req.body.gender
+    };
+
+
     users.push( {...user, id:uuidv4()})
-    res.send(` user with the user name ${users[users.length - 1].firstName} added to the database`);
+    console.log(user)
+    res.status(200).send(` user with the user name ${users[users.length - 1].firstName} added to the database`);
+    
 }
 export const getUsers = (req, res)=>{
     // console.log(users)
