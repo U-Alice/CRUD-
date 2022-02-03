@@ -5,8 +5,8 @@ export const createUser = (req, res)=>{
     
     
   let error = !req.body.lastName ? 'last name is required' : !req.body.age ? 'age is required' : !req.body.firstName ? 'firstName is required' : !req.body.age ? 'age is required' : !req.body.gender? 'gender is require' : ' '
-    if( error != ' ')
-    return res.status(400).send(error);
+    
+
 
     let validGender = ['male', 'female']        
      error = typeof req.body.lastName != 'string' ?'lastname is required' : typeof req.body.age != 'number' ? 'age must be a number' :typeof req.body.firstName != 'string' ? 'firstName is required' :  !validGender.includes( req.body.gender) ? `gender must be ${validGender.join(' or ')}` : ' '
