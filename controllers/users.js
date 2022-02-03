@@ -9,7 +9,7 @@ export const createUser = (req, res)=>{
     return res.status(400).send(error);
 
     let validGender = ['male', 'female']        
-     error = typeof req.body.lastName != 'string' ?'lastname must be a string' : typeof req.body.age != 'number' ? 'age is required' :typeof req.body.firstName != 'string' ? 'firstName is required' :  !validGender.includes( req.body.gender) ? 'gender is required' : ' '
+     error = typeof req.body.lastName != 'string' ?'lastname is required' : typeof req.body.age != 'number' ? 'age must be a number' :typeof req.body.firstName != 'string' ? 'firstName is required' :  !validGender.includes( req.body.gender) ? `gender must be ${validGender.join(' or ')}` : ' '
     if( error != ' ')
     return res.status(400).send(error);
     
@@ -24,7 +24,7 @@ export const createUser = (req, res)=>{
 
 
     users.push( {...user, id:uuidv4()})
-    console.log(user)
+    // console.log(user)
     res.status(200).send(` user with the user name ${users[users.length - 1].firstName} added to the database`);
     
 }
